@@ -72,7 +72,7 @@ void Oscillator::detach() {
 // Set the oscillator period, in ms
 void Oscillator::setT(unsigned int T) {
   _T = T; // Assign the new period
-  _N = _T / _TS; // Recalculate the parameters
+  _NS = _T / _TS; // Recalculate the parameters
   _inc = 2 * M_PI / _NS;
 }
 
