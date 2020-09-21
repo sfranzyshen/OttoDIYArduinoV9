@@ -26,7 +26,7 @@ class Otto9 {
     // Predetermined Motion Functions
     void moveServos(int time, int servo_target[]);
     void moveSingle(int position,int servo_number);
-    void oscillateServos(int A[4], int O[4], int T, double phase_diff[4], float cycle);
+    void oscillateServos(int A[4], int O[4], int T, double phase_diff[4], float cycle = 1);
     // HOME = Otto at rest position
     void home();
     bool getRestState();
@@ -54,6 +54,6 @@ class Otto9 {
     unsigned long _partial_time;
     float _increment[4];
     bool _isOttoResting;
-    void _execute(int A[4], int O[4], int T, double phase_diff[4], float steps);
+    void _execute(int A[4], int O[4], int T, double phase_diff[4], float steps = 1.0);
 };
 
