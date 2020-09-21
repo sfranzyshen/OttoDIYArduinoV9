@@ -15,19 +15,19 @@
 
 class Oscillator {
   public:
-    Oscillator(int trim = 0) {_trim = trim;};
+    Oscillator(int trim = 0);
     void attach(int pin, bool rev = false);
     void detach();
-    void setA(int A) {_A = A;};
-    void setO(int O) {_O = O;};
-    void setPh(double Ph) {_phase0 = Ph;};
+    void setA(int A);
+    void setO(int O);
+    void setPh(double Ph);
     void setT(unsigned int T);
-    void setTrim(int trim) {_trim = trim;};
-    int getTrim() {return _trim;};
+    void setTrim(int trim);
+    int getTrim();
     void setPosition(int position); 
-    void stop() {_stop = true;};
-    void play() {_stop = false;};
-    void reset() {_phase = 0;};
+    void stop();
+    void play();
+    void reset();
     void refresh();
   private:
     bool _next_sample();  
