@@ -1,4 +1,5 @@
 // OttoDIY version 0.3.9
+// OttDIY Arduino Project, 2020 | sfranzyshen
 
 #include "Arduino.h"
 #include "Otto9.h"
@@ -61,12 +62,13 @@ void Otto9::moveServos(int time, int  servo_target[]) {
     _final_time =  millis() + time;
 
     for(int iteration = 1; millis() < _final_time; iteration++) {
+      yield();
       _partial_time = millis() + 10;
       for(int i = 0; i < 4; i++) {
         _servo[i].setPosition(_servo_position[i] + (iteration * _increment[i]));
       }
-      while(millis() < _partial_time) {
-        //pause
+      while(millis() < _partial_time) { // pause
+        yield();
       }
     }
   } else {
@@ -101,12 +103,13 @@ void Otto9::oscillateServos(int A[], int O[], int T, double phase_diff[], float 
   double ref = millis();
   for(double x = ref; x <= T * cycle + ref; x = millis()) {
     for(int i = 0; i < 4; i++) {
+      yield();
       _servo[i].refresh();
     }
   }
 }
 
-void Otto9::_execute(int A[], int O[], int T, double phase_diff[], float steps) {
+void Otto9::execute(int A[], int O[], int T, double phase_diff[], float steps) {
   attachServos();
   if(getRestState() == true) {
     setRestState(false);
@@ -169,7 +172,7 @@ void Otto9::walk(float steps, int T, int dir) {
   double phase_diff[] = {0, 0, DEG2RAD(dir * -90), DEG2RAD(dir * -90)};
 
   //-- Let's oscillate the servos!
-  _execute(A, O, T, phase_diff, steps);  
+  execute(A, O, T, phase_diff, steps);  
 }
 
 // Otto gait: Turning (left or right)
@@ -193,7 +196,7 @@ void Otto9::turn(float steps, int T, int dir) {
     A[1] = 30;
   }
   // Let's oscillate the servos!
-  _execute(A, O, T, phase_diff, steps); 
+  execute(A, O, T, phase_diff, steps); 
 }
 
 // Otto gait: Lateral bend
@@ -283,7 +286,7 @@ void Otto9::updown(float steps, int T, int h) {
   
   //-- Let's oscillate the servos!
   //_execute(A, O, T, phase_diff, steps); 
-  _execute(A, O, T, phase_diff, steps); 
+  execute(A, O, T, phase_diff, steps); 
 }
 
 // Otto movement: swinging side to side
@@ -300,7 +303,7 @@ void Otto9::swing(float steps, int T, int h) {
   double phase_diff[4] = {0, 0, DEG2RAD(0), DEG2RAD(0)};
   
   // Let's oscillate the servos!
-  _execute(A, O, T, phase_diff, steps); 
+  execute(A, O, T, phase_diff, steps); 
 }
 
 // Otto movement: swinging side to side without touching the floor with the heel
@@ -316,7 +319,7 @@ void Otto9::tiptoeSwing(float steps, int T, int h) {
   double phase_diff[4] = {0, 0, 0, 0};
   
   //-- Let's oscillate the servos!
-  _execute(A, O, T, phase_diff, steps); 
+  execute(A, O, T, phase_diff, steps); 
 }
 
 // Otto gait: Jitter 
@@ -336,7 +339,7 @@ void Otto9::jitter(float steps, int T, int h) {
   double phase_diff[4] = {DEG2RAD(-90), DEG2RAD(90), 0, 0};
   
   // Let's oscillate the servos!
-  _execute(A, O, T, phase_diff, steps); 
+  execute(A, O, T, phase_diff, steps); 
 }
 
 // Otto gait: Ascending & turn (Jitter while up&down)
@@ -355,7 +358,7 @@ void Otto9::ascendingTurn(float steps, int T, int h) {
   double phase_diff[4] = {DEG2RAD(-90), DEG2RAD(90), DEG2RAD(-90), DEG2RAD(90)};
   
   // Let's oscillate the servos!
-  _execute(A, O, T, phase_diff, steps); 
+  execute(A, O, T, phase_diff, steps); 
 }
 
 // Otto gait: Moonwalker. Otto moves like Michael Jackson
@@ -381,7 +384,7 @@ void Otto9::moonwalker(float steps, int T, int h, int dir) {
   double phase_diff[4] = {0, 0, DEG2RAD(phi), DEG2RAD(-60 * dir + phi)};
   
   //-- Let's oscillate the servos!
-  _execute(A, O, T, phase_diff, steps); 
+  execute(A, O, T, phase_diff, steps); 
 }
 
 // Otto gait: Crusaito. A mixture between moonwalker and walk
@@ -396,7 +399,7 @@ void Otto9::crusaito(float steps, int T, int h, int dir) {
   double phase_diff[4] = {90, 90, DEG2RAD(0), DEG2RAD(-60 * dir)};
   
   //-- Let's oscillate the servos!
-  _execute(A, O, T, phase_diff, steps);
+  execute(A, O, T, phase_diff, steps);
 }
 
 // Otto gait: Flapping
@@ -411,6 +414,6 @@ void Otto9::flapping(float steps, int T, int h, int dir) {
   double phase_diff[4] = {DEG2RAD(0), DEG2RAD(180), DEG2RAD(-90 * dir), DEG2RAD(90 * dir)};
   
   // Let's oscillate the servos!
-  _execute(A, O, T, phase_diff, steps);
+  execute(A, O, T, phase_diff, steps);
 }
 
