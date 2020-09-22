@@ -1,6 +1,9 @@
 // OttoDIY version 0.3.9
+// OttDIY Arduino Project, 2020 | sfranzyshen
 
-#include <Servo.h>
+#ifndef OTTO9_h
+#define OTTO9_h
+
 #include <Oscillator.h>
 #include <EEPROM.h>
 
@@ -15,24 +18,20 @@
 
 class Otto9 {
   public:
-    // Otto initialization
-    void init(int YL, int YR, int RL, int RR, bool load_calibration, int NoiseSensor, int Buzzer, int USTrigger, int USEcho);
-    // Attach & detach functions
-    void attachServos();
+    void init(int YL, int YR, int RL, int RR, bool load_calibration, 
+		int NoiseSensor, int Buzzer, int USTrigger, int USEcho); // Otto initialization
+    void attachServos(); // Attach & detach functions
     void detachServos();
-    // Oscillator Trims
-    void setTrims(int YL, int YR, int RL, int RR);
+    void setTrims(int YL, int YR, int RL, int RR); // Oscillator Trims
     void saveTrimsOnEEPROM();
-    // Predetermined Motion Functions
-    void moveServos(int time, int servo_target[]);
+    void moveServos(int time, int servo_target[]); // Predetermined Motion Functions
     void moveSingle(int position,int servo_number);
     void oscillateServos(int A[4], int O[4], int T, double phase_diff[4], float cycle = 1);
-    // HOME = Otto at rest position
-    void home();
+    void execute(int A[4], int O[4], int T, double phase_diff[4], float steps = 1.0);
+    void home(); // HOME = Otto at rest position
     bool getRestState();
     void setRestState(bool state);
-    // Predetermined Motion Functions
-    void jump(float steps = 1, int T = 2000);
+    void jump(float steps = 1, int T = 2000); // Predetermined Motion Functions
     void walk(float steps = 4, int T = 1000, int dir = FORWARD);
     void turn(float steps = 4, int T = 2000, int dir = LEFT);
     void bend(int steps = 1, int T = 1400, int dir = LEFT);
@@ -54,6 +53,7 @@ class Otto9 {
     unsigned long _partial_time;
     float _increment[4];
     bool _isOttoResting;
-    void _execute(int A[4], int O[4], int T, double phase_diff[4], float steps = 1.0);
 };
+
+#endif
 
