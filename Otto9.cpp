@@ -9,7 +9,7 @@ void Otto9::init(int YL, int YR, int RL, int RR, bool load_calibration, int Nois
   _servo_pins[2] = RL;
   _servo_pins[3] = RR;
   attachServos();
-  _isOttoResting = false;
+  setRestState(false);
   if(load_calibration) {
     for(int i = 0; i < 4; i++) {
       int servo_trim = EEPROM.read(i);
