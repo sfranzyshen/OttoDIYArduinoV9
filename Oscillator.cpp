@@ -1,10 +1,9 @@
-// Oscillator.pde
-// Generate sinusoidal oscillations in the servos
+// Oscillator.pde Generate sinusoidal oscillations in the servos
 // GPL license (c) Juan Gonzalez-Gomez (Obijuan), Dec 2011
+// OttDIY Arduino Project, 2020 | sfranzyshen
 
 #include "Arduino.h"
 #include "Oscillator.h"
-#include <Servo.h>
 
 Oscillator::Oscillator(int trim) {
   _trim = trim;
