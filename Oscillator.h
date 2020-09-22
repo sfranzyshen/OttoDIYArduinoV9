@@ -1,15 +1,17 @@
-// Oscillator.pde
-// Generate sinusoidal oscillations in the servos
+// Oscillator.pde Generate sinusoidal oscillations in the servos
 // GPL license (c) Juan Gonzalez-Gomez (Obijuan), Dec 2011
+// OttDIY Arduino Project, 2020 | sfranzyshen
 
 #ifndef Oscillator_h
-  #define Oscillator_h
+#define Oscillator_h
+
+#if defined(ESP32)
+# include <ESP32Servo.h>
+#else
+# include <Servo.h>
 #endif
 
-#include <Servo.h>
-
-// Macro for converting from degrees to radians
-#ifndef DEG2RAD
+#ifndef DEG2RAD // Macro for converting from degrees to radians
   #define DEG2RAD(g) ((g) * M_PI) / 180
 #endif
 
@@ -49,3 +51,5 @@ class Oscillator {
     bool _stop; // Oscillation mode. If true, the servo is stopped
     bool _rev; // Reverse mode
 };
+
+#endif
