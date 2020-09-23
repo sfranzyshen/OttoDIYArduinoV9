@@ -61,13 +61,13 @@ void Otto9::moveServos(int time, int  servo_target[]) {
       _increment[i] = ((servo_target[i]) - _servo_position[i]) / (time / 10.0);
     _final_time =  millis() + time;
 
-    for(int iteration = 1; millis() < _final_time; iteration++) {
+    for(int iteration = 1; millis() < _final_time; iteration++) { // FIXME for non-blocking
       yield();
       _partial_time = millis() + 10;
       for(int i = 0; i < 4; i++) {
         _servo[i].setPosition(_servo_position[i] + (iteration * _increment[i]));
       }
-      while(millis() < _partial_time) { // pause
+      while(millis() < _partial_time) { // pause // FIXME for non-blocking
         yield();
       }
     }
@@ -101,7 +101,7 @@ void Otto9::oscillateServos(int A[], int O[], int T, double phase_diff[], float 
     _servo[i].setPh(phase_diff[i]);
   }
   double ref = millis();
-  for(double x = ref; x <= T * cycle + ref; x = millis()) {
+  for(double x = ref; x <= T * cycle + ref; x = millis()) { // FIXME for non-blocking
     for(int i = 0; i < 4; i++) {
       yield();
       _servo[i].refresh();
@@ -223,7 +223,7 @@ void Otto9::bend(int steps, int T, int dir) {
   for(int i=0; i < steps; i++) {
     moveServos(T2 / 2, bend1);
     moveServos(T2 / 2, bend2);
-    delay(T * 0.8); // FIXME 
+    delay(T * 0.8); // FIXME for non-blocking
     moveServos(500, homes);
   }
 
@@ -266,7 +266,7 @@ void Otto9::shakeLeg(int steps, int T,int dir) {
     }
     moveServos(500, homes); //Return to home position
   }
-  delay(T);
+  delay(T); // FIXME for non-blocking
 }
 
 // Otto movement: up & down
