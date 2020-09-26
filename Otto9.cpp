@@ -4,32 +4,18 @@
 #include "Arduino.h"
 #include "Otto9.h"
 
-// Otto9 initialization
-void Otto9::init(int YL, int YR, int RL, int RR, bool load_calibration, int NoiseSensor, int Buzzer, int USTrigger, int USEcho) {
+// Otto9 or Humanoid initialization
+void Otto9::init(int YL, int YR, int RL, int RR, bool load_calibration, int NoiseSensor, int Buzzer, int USTrigger, int USEcho, int LA, int RA) {
   _servo_pins[0] = YL;
   _servo_pins[1] = YR;
   _servo_pins[2] = RL;
   _servo_pins[3] = RR;
-  _servo_totals = 4;
-  attachServos();
-  setRestState(false);
-  if(load_calibration) {
-	  loadCalibration();
+  _servo_totals = 4; // Otto9
+  if(LA != -1) {
+	_servo_pins[4] = LA;
+	_servo_pins[5] = RA;
+	_servo_totals = 6; // Humanoid
   }
-  for(int i = 0; i < _servo_totals; i++) {
-    _servo_positions[i] = 90;
-  }
-}
-
-// Otto9Humanoid initialization
-void Otto9::init(int YL, int YR, int RL, int RR, int LA, int RA, bool load_calibration, int NoiseSensor, int Buzzer, int USTrigger, int USEcho) {
-  _servo_pins[0] = YL;
-  _servo_pins[1] = YR;
-  _servo_pins[2] = RL;
-  _servo_pins[3] = RR;
-  _servo_pins[4] = LA;
-  _servo_pins[5] = RA;
-  _servo_totals = 6;
   attachServos();
   setRestState(false);
   if(load_calibration) {
@@ -42,7 +28,7 @@ void Otto9::init(int YL, int YR, int RL, int RR, int LA, int RA, bool load_calib
 
 // Otto9Humanoid initialization (depreciated)
 void Otto9::initHUMANOID(int YL, int YR, int RL, int RR,int LA, int RA, bool load_calibration, int NoiseSensor, int Buzzer, int USTrigger, int USEcho) {
-	init(YL, YR, RL, RR, LA, RA, load_calibration, NoiseSensor, Buzzer, USTrigger, USEcho);
+	init(YL, YR, RL, RR, load_calibration, NoiseSensor, Buzzer, USTrigger, USEcho, LA, RA);
 }
 
 // Load Calibration Trims
@@ -68,22 +54,16 @@ void Otto9::detachServos() {
   }
 }
 
-// OSCILLATORS TRIMS Otto
-void Otto9::setTrims(int YL, int YR, int RL, int RR) {
-  _servos[0].setTrim(YL);
-  _servos[1].setTrim(YR);
-  _servos[2].setTrim(RL);
-  _servos[3].setTrim(RR);
-}
-
-// OSCILLATORS TRIMS Humanoid
+// OSCILLATORS TRIMS
 void Otto9::setTrims(int YL, int YR, int RL, int RR, int LA, int RA) {
   _servos[0].setTrim(YL);
   _servos[1].setTrim(YR);
   _servos[2].setTrim(RL);
   _servos[3].setTrim(RR);
-  _servos[4].setTrim(LA);
-  _servos[5].setTrim(RA);
+  if(_servo_totals > 4) {
+	_servos[4].setTrim(LA);
+	_servos[5].setTrim(RA);
+  }
 }
 
 void Otto9::saveTrimsOnEEPROM() {
@@ -444,27 +424,32 @@ void Otto9::flapping(float steps, int T, int h, int dir) {
 }
 
 // Otto movement: Hands up
-void Otto9::handsup(){
-  int homes[6]={90, 90, 90, 90, 20, 160}; //
-  moveServos(1000, homes);   //Move the servos in half a second
+void Otto9::handsup() {
+  if(_servo_totals > 4) {
+	int homes[6] = {90, 90, 90, 90, 20, 160}; //
+	moveServos(1000, homes);   //Move the servos in half a second
+  }
 }
 
 // Otto movement: Wave , either left or right
 void Otto9::handwave(int dir){
-  if(dir == RIGHT) {
-	int A[6] = {0, 0, 0, 0, 30, 0}; // right hand wave
-	int O[6] = {0, 0, 0, 0, -30, -40};
-	double phase_diff[6] = {0, 0, 0, 0, DEG2RAD(0),0};
-    // Let's oscillate the servos!
-	execute(A, O, 1000, phase_diff, 5); 
-  }
-  if(dir == LEFT) {
-	int A[6] = {0, 0, 0, 0, 0, 30}; // left hand wave
-	int O[6] = {0, 0, 0, 0, 40, 60};
-	double phase_diff[6] = {0, 0, 0, 0, 0, DEG2RAD(0)};
-    // Let's oscillate the servos!
-	execute(A, O, 1000, phase_diff, 1); 
+  if(_servo_totals > 4) {
+	if(dir == RIGHT) {
+		int A[6] = {0, 0, 0, 0, 30, 0}; // right hand wave
+		int O[6] = {0, 0, 0, 0, -30, -40};
+		double phase_diff[6] = {0, 0, 0, 0, DEG2RAD(0),0};
+		// Let's oscillate the servos!
+		execute(A, O, 1000, phase_diff, 5); 
+	}
+	if(dir == LEFT) {
+		int A[6] = {0, 0, 0, 0, 0, 30}; // left hand wave
+		int O[6] = {0, 0, 0, 0, 40, 60};
+		double phase_diff[6] = {0, 0, 0, 0, 0, DEG2RAD(0)};
+		// Let's oscillate the servos!
+		execute(A, O, 1000, phase_diff, 1); 
+	}
   }
 }
 
 //end
+
