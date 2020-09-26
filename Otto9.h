@@ -19,15 +19,15 @@
 class Otto9 {
   public:
     void init(int YL, int YR, int RL, int RR, bool load_calibration,
-		int NoiseSensor, int Buzzer, int USTrigger, int USEcho); // Otto9 initialization
+    	int NoiseSensor, int Buzzer, int USTrigger, int USEcho); // Otto9 initialization
     void init(int YL, int YR, int RL, int RR, int LA, int RA, bool load_calibration,
-		int NoiseSensor, int Buzzer, int USTrigger, int USEcho); // Otto9Humanoid initialization
+    	int NoiseSensor, int Buzzer, int USTrigger, int USEcho); // Otto9Humanoid initialization
     void initHUMANOID(int YL, int YR, int RL, int RR,int LA, int RA, bool load_calibration,
-		int NoiseSensor, int Buzzer, int USTrigger, int USEcho); // Otto9Humanoid initialization (depreciated)
-	void attachServos(); // Attach & detach functions
+    	int NoiseSensor, int Buzzer, int USTrigger, int USEcho); // Otto9Humanoid initialization (depreciated)
+    void attachServos(); // Attach & detach functions
     void detachServos();
     void setTrims(int YL, int YR, int RL, int RR); // Oscillator Trims Otto
-	void setTrims(int YL, int YR, int RL, int RR, int LA, int RA); // Oscillator Trims
+    void setTrims(int YL, int YR, int RL, int RR, int LA, int RA); // Oscillator Trims
     void saveTrimsOnEEPROM();
     void moveServos(int time, int servo_target[]); // Predetermined Motion Functions
     void moveSingle(int position,int servo_number);
@@ -49,15 +49,15 @@ class Otto9 {
     void moonwalker(float steps = 1, int T = 900, int h = 20, int dir = LEFT);
     void crusaito(float steps = 1, int T = 900, int h = 20, int dir = FORWARD);
     void flapping(float steps = 1, int T = 1000, int h = 20, int dir = FORWARD);
-	void handsup();
-	void handwave(int dir = RIGHT);
-	void loadCalibration();
+    void handsup();
+    void handwave(int dir = RIGHT);
+    void loadCalibration();
   private:
     Oscillator _servos[6];
     int _servo_pins[6];
     int _servo_trims[6];
     int _servo_positions[6];
-	int _servo_totals;
+    int _servo_totals;
     unsigned long _final_time;
     unsigned long _partial_time;
     float _increment[6];
