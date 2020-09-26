@@ -443,4 +443,28 @@ void Otto9::flapping(float steps, int T, int h, int dir) {
   execute(A, O, T, phase_diff, steps);
 }
 
+// Otto movement: Hands up
+void Otto9::handsup(){
+  int homes[6]={90, 90, 90, 90, 20, 160}; //
+  moveServos(1000, homes);   //Move the servos in half a second
+}
+
+// Otto movement: Wave , either left or right
+void Otto9::handwave(int dir){
+  if(dir == RIGHT) {
+	int A[6] = {0, 0, 0, 0, 30, 0}; // right hand wave
+	int O[6] = {0, 0, 0, 0, -30, -40};
+	double phase_diff[6] = {0, 0, 0, 0, DEG2RAD(0),0};
+    // Let's oscillate the servos!
+	execute(A, O, 1000, phase_diff, 5); 
+  }
+  if(dir == LEFT) {
+	int A[6] = {0, 0, 0, 0, 0, 30}; // left hand wave
+	int O[6] = {0, 0, 0, 0, 40, 60};
+	double phase_diff[6] = {0, 0, 0, 0, 0, DEG2RAD(0)};
+    // Let's oscillate the servos!
+	execute(A, O, 1000, phase_diff, 1); 
+  }
+}
+
 //end
