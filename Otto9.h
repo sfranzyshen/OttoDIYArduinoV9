@@ -4,8 +4,15 @@
 #ifndef OTTO9_h
 #define OTTO9_h
 
-#include <Oscillator.h>
 #include <EEPROM.h>
+#include "Oscillator.h"
+#include "TimerFreeTone.h"
+#include "US.h"
+#include "BatReader9.h"
+#include "Matrix9.h"
+#include "Mouth9.h"
+#include "Sound9.h"
+#include "Gestures9.h"
 
 //-- Constants
 #define FORWARD     1
