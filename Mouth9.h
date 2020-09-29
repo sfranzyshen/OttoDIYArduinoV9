@@ -1,4 +1,5 @@
-//-- OTTO mouth version 9
+// OTTO mouth version 9
+// OttDIY Arduino Project, 2020
 
 #ifndef Otto_mouth9_h
 #define Otto_mouth9_h
@@ -38,7 +39,7 @@ const unsigned long int Mouthtable[NUMBER_OF_ELEMENTS] PROGMEM = {
   0b00000000011110100001100001000000  // angry_code
 };
 
-//Mouths sorted by numbers, and after, by happy to sad mouths
+// Mouths sorted by numbers, and after, by happy to sad mouths
 #define zero          0
 #define one           1
 #define two           2
