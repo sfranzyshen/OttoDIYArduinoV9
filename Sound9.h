@@ -1,4 +1,5 @@
-//-- OTTO sound version 9 
+// OTTO sound version 9 
+// OttDIY Arduino Project, 2020
 
 #ifndef Otto_sound9_h
 #define Otto_sound9_h
