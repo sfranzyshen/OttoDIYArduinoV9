@@ -1,4 +1,4 @@
-// OTTO version 9 
+// OTTO Gestures version 9 
 // OttDIY Arduino Project, 2020
 
 #ifndef Otto_gestures9_h
