@@ -1,3 +1,6 @@
+// OTTO ultrasonic version 9
+// OttDIY Arduino Project, 2020
+
 #ifndef US_h
 #define US_h
 #include "Arduino.h"
