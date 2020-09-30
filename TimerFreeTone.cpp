@@ -1,9 +1,5 @@
-// ---------------------------------------------------------------------------
-// Created by Tim Eckel - teckel@leethost.com
-// Copyright 2016 License: GNU GPL v3 http://www.gnu.org/licenses/gpl-3.0.html
-//
-// See "TimerFreeTone.h" for purpose, syntax, version history, links, and more.
-// ---------------------------------------------------------------------------
+// "TimerFreeTone.h" by Tim Eckel - teckel@leethost.com Copyright 2016 License: GNU GPLv3 
+// OttDIY Arduino Project, 2020
 
 #include "TimerFreeTone.h"
 
