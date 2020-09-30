@@ -56,6 +56,33 @@ class Otto9 {
     void handsup();
     void handwave(int dir = RIGHT);
     void loadCalibration();
+  
+    // Sensors functions
+    float getDistance(); // US sensor
+    int getNoise();      // Noise Sensor
+/*
+    // Battery
+    double getBatteryLevel();
+    double getBatteryVoltage();
+*/    
+    // Mouth & Animations
+    void putMouth(unsigned long int mouth, bool predefined = true);
+    void putAnimationMouth(unsigned long int anim, int index);
+    void clearMouth();
+
+    // Sounds
+    void _tone(float noteFrequency, long noteDuration, int silentDuration);
+    void bendTones(float initFrequency, float finalFrequency, float prop, long noteDuration, int silentDuration);
+    void sing(int songName);
+
+    // Gestures
+    void playGesture(int gesture);
+    void initMATRIX(int DIN, int CS, int CLK, int rotate);
+    void matrixIntensity(int intensity);
+    void initBatLevel(int batteryPIN);
+    void setLed(byte X, byte Y, byte value);
+    void writeText(const char * s, byte scrollspeed);
+  
   private:
     Oscillator _servos[6];
     int _servo_pins[6];
@@ -66,6 +93,13 @@ class Otto9 {
     unsigned long _partial_time;
     float _increment[6];
     bool _isOttoResting;
+    //BatReader9 battery;
+    US us;
+    Otto_Matrix ledmatrix;
+    int pinBuzzer;
+    int pinNoiseSensor;
+    unsigned long int getMouthShape(int number);
+    unsigned long int getAnimShape(int anim, int index);
 };
 #endif
 
