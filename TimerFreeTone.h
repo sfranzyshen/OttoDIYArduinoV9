@@ -1,17 +1,6 @@
-// TimerFreeTone Library - v1.5 - 09/12/2016
-//
-// Created by Tim Eckel - teckel@leethost.com
-// Copyright 2016 License: GNU GPL v3 http://www.gnu.org/licenses/gpl-3.0.html
-// Project home: https://bitbucket.org/teckel12/arduino-timer-free-tone
-// Blog: http://forum.arduino.cc/index.php?topic=235774.0
-//
-// PURPOSE:
-// Doesn't use timers which frees up conflicts with other libraries. Compatible
-// with all ATmega, ATtiny and ARM-based microcontrollers. About 1,500 bytes
-// smaller binary sketch size than the standard tone library. Exclusive use of
-// port registers for AVR-based microcontrollers for fastest and smallest code.
-// Close to a plug-in replacement for the standard Tone library.
-//
+// "TimerFreeTone.h" by Tim Eckel - teckel@leethost.com Copyright 2016 License: GNU GPLv3 
+// OttDIY Arduino Project, 2020
+
 // SYNTAX:
 //   TimerFreeTone( pin, frequency, duration [, volume ] ) - Play a note on pin at frequency in Hz for duration in milliseconds.
 //     Parameters:
